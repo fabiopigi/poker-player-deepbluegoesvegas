@@ -84,10 +84,10 @@ class Player {
     return _.max(this.gameState.players, player => player.bet).bet;
   }
 
-  static tooRisky() {
+  static tooRisky(factor = 0.3) {
     const maxBet = this.getMaxBet();
     console.log("maxBet",maxBet);
-    return (this.getMe()['bet'] + Math.round(this.getMe()['stack'] * .3) < maxBet) || this.getMe()['stack'] <= maxBet;
+    return (this.getMe()['bet'] + Math.round(this.getMe()['stack'] * factor) < maxBet) || this.getMe()['stack'] <= maxBet;
   }
 
   // GETS CALLED
@@ -172,6 +172,8 @@ class Player {
               } else if (rank === 0) {
                 console.log("Turn F", rank);
                 betValue = this.callRound();
+              } else {
+                betValue = this.callRound();
               }
 
 
@@ -195,6 +197,8 @@ class Player {
                 betValue = this.callRound();
               } else if (rank === 0) {
                 console.log("River F", rank);
+                betValue = this.callRound();
+              } else {
                 betValue = this.callRound();
               }
 
