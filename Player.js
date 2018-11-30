@@ -218,7 +218,7 @@ class Player {
             }
 
 
-            if (rank >= 7) {
+            if (rank >= 5) {
               betValue = this.allIn();
             }
 
