@@ -195,7 +195,7 @@ class Player {
                 betValue = this.raise(10 * rank);
               } else if (rank === 0) {
                 console.log("River F", rank);
-                betValue = this.callRound();
+                betValue = this.fold();
               } else {
                 console.log("River G", rank);
                 betValue = this.callRound();
