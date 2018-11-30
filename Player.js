@@ -3,7 +3,7 @@ const _ = require('underscore');
 
 class Player {
   static get VERSION() {
-    return '0.1';
+    return '0.2';
   }
 
 
@@ -147,6 +147,9 @@ class Player {
               } else if (rank === 0) {
                 console.log("Flop F", rank);
                 betValue = this.callRound();
+              } else {
+                console.log("Flop G", rank);
+                betValue = this.callRound();
               }
 
 
@@ -173,6 +176,7 @@ class Player {
                 console.log("Turn F", rank);
                 betValue = this.callRound();
               } else {
+                console.log("Turn G", rank);
                 betValue = this.callRound();
               }
 
@@ -199,6 +203,7 @@ class Player {
                 console.log("River F", rank);
                 betValue = this.callRound();
               } else {
+                console.log("River G", rank);
                 betValue = this.callRound();
               }
 
