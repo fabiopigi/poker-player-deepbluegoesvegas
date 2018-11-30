@@ -88,6 +88,7 @@ class Player {
         //
         // }
         betValue = this.callRound();
+        console.log("######## WE BET (without community card) WITH: " + betValue + " ########");
         bet(betValue)
       } else {
         // community cards are available, we check API
@@ -140,7 +141,7 @@ class Player {
               betValue = this.allIn();
             }
 
-            console.log("######## WE BET WITH: " + betValue + " ########");
+            console.log("######## WE BET (with community card) WITH: " + betValue + " ########");
             bet(betValue);
           })
           .catch(err => console.error(err));
