@@ -86,6 +86,7 @@ class Player {
 
   static tooRisky() {
     const maxBet = this.getMaxBet();
+    console.log("maxBet",maxBet);
     return (this.getMe()['bet'] + 300 < maxBet) || this.getMe()['stack'] <= maxBet;
   }
 
@@ -121,6 +122,16 @@ class Player {
             console.log("RANK: ", rank);
             //Flop
             if (gameState.community_cards.length === 3) {
+
+              if(this.tooRisky()) {
+
+              } else {
+                if(_.contains([1],risk)) {
+
+                } else if(_.contains([2,3,4,5,6,7,8,9],risk)) {
+
+                }
+              }
 
               if (rank < 2 && this.tooRisky()) {
                 betValue = this.fold();
