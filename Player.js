@@ -49,6 +49,15 @@ class Player {
       this.consecutive(cards[0], cards[1]);
   }
 
+  static hasGoodFlop(cards) {
+
+    return this.hasMultiple(cards, 2) ||
+      this.hasCard(cards, 'A') ||
+      this.hasCard(cards, 'K') ||
+      this.sameColor(cards[0], cards[1]) ||
+      this.consecutive(cards[0], cards[1]);
+  }
+
   static allIn() {
     return (this.betValue + this.gameState.minimum_raise + this.getMe().stack - 10);
   }
@@ -99,6 +108,7 @@ class Player {
           .then(json => {
             let rank = json.rank;
 
+            console.log("RANK: ", rank);
             //Flop
             if (gameState.community_cards.length === 3) {
               if (rank === 1) {
@@ -106,7 +116,9 @@ class Player {
               } else if (rank > 1) {
                 betValue = this.raise(1);
               }
-              else if (rank === 0) {
+              else if (rank === 0 && this.hasGoodFlop(cards)) {
+                betValue = this.callRound();
+              } else if (rank === 0) {
                 betValue = this.fold();
               }
 
