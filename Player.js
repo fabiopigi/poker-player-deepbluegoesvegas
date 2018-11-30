@@ -84,11 +84,11 @@ class Player {
 
       //Check initial cards on hand before comm flipped
       if (gameState.community_cards.length === 0) {
-        if (this.hasGoodStart(cards) || this.getMe()['bet'] > 0) {
-          bet(betValue);
-        } else {
-          bet(0);
-        }
+        // if (this.hasGoodStart(cards) || this.getMe()['bet'] > 0) {
+        //
+        // }
+        betValue = this.callRound();
+        bet(betValue)
       } else {
         // community cards are available, we check API
         const rankingUrl = "http://rainman.leanpoker.org/rank" + "?cards=" + encodeURI(JSON.stringify(cards));
