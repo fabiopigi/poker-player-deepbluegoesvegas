@@ -107,7 +107,7 @@ class Player {
                 betValue = this.raise(1);
               }
               else if (rank === 0) {
-                betValue = fold();
+                betValue = this.fold();
               }
 
 
@@ -119,7 +119,7 @@ class Player {
                 betValue = this.raise(1);
               }
               else if (rank === 0) {
-                betValue = fold();
+                betValue = this.fold();
               }
 
 
@@ -131,7 +131,7 @@ class Player {
                 betValue = this.raise(1);
               }
               else if (rank === 0) {
-                betValue = fold();
+                betValue = this.fold();
               }
 
             }
