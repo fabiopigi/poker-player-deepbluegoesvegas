@@ -114,7 +114,7 @@ class Player {
               if (rank === 1) {
                 betValue = this.callRound();
               } else if (rank > 1) {
-                betValue = this.raise(1);
+                betValue = this.raise(rank);
               }
               else if (rank === 0 && this.hasGoodFlop(cards)) {
                 betValue = this.callRound();
@@ -128,7 +128,7 @@ class Player {
               if (rank === 1) {
                 betValue = this.callRound();
               } else if (rank > 1) {
-                betValue = this.raise(1);
+                betValue = this.raise(5 * rank);
               }
               else if (rank === 0) {
                 betValue = this.callRound();
@@ -140,7 +140,7 @@ class Player {
               if (rank === 1) {
                 betValue = this.callRound();
               } else if (rank > 1) {
-                betValue = this.raise(1);
+                betValue = this.raise(10 * rank);
               }
               else if (rank === 0) {
                 betValue = this.callRound();
