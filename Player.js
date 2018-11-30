@@ -125,16 +125,22 @@ class Player {
 
 
               if (rank < 2 && this.tooRisky()) {
+                console.log("Flop A");
                 betValue = this.fold();
               } else if (rank === 1) {
+                console.log("Flop B");
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
+                console.log("Flop C");
                 betValue = this.fold();
               } else if (rank > 1) {
+                console.log("Flop D");
                 betValue = this.callRound();
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
+                console.log("Flop E");
                 betValue = this.callRound();
               } else if (rank === 0) {
+                console.log("Flop F");
                 betValue = this.callRound();
               }
 
@@ -144,16 +150,22 @@ class Player {
 
 
               if (rank < 2 && this.tooRisky()) {
+                console.log("Turn A");
                 betValue = this.fold();
               } else if (rank === 1) {
+                console.log("Turn B");
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
+                console.log("Turn C");
                 betValue = this.fold();
               } else if (rank > 3) {
+                console.log("Turn D");
                 betValue = this.raise(5 * rank);
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
+                console.log("Turn E");
                 betValue = this.callRound();
               } else if (rank === 0) {
+                console.log("Turn F");
                 betValue = this.callRound();
               }
 
@@ -162,16 +174,22 @@ class Player {
             } else if (gameState.community_cards.length === 5) {
 
               if (rank < 2 && this.tooRisky()) {
+                console.log("River A");
                 betValue = this.fold();
               } else if (rank === 1) {
+                console.log("River B");
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
+                console.log("River C");
                 betValue = this.fold();
               } else if (rank > 3) {
+                console.log("River D");
                 betValue = this.raise(10 * rank);
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
+                console.log("River E");
                 betValue = this.callRound();
               } else if (rank === 0) {
+                console.log("River F");
                 betValue = this.callRound();
               }
 
