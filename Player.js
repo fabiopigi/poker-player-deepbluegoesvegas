@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const _ = require('underscore');
 
 class Player {
   static get VERSION() {
@@ -79,6 +80,13 @@ class Player {
     return this.gameState.players[this.gameState.in_action];
   }
 
+  static getMaxBet() {
+    return _.max(this.gameState.players, player => player.bet).bet;
+  }
+
+  static tooRisky() {
+    return this.getMe()['bet'] + 300 < this.getMaxBet();
+  }
 
   // GETS CALLED
   static betRequest(gameState, bet) {
@@ -93,10 +101,11 @@ class Player {
 
       //Check initial cards on hand before comm flipped
       if (gameState.community_cards.length === 0) {
-        // if (this.hasGoodStart(cards) || this.getMe()['bet'] > 0) {
-        //
-        // }
-        betValue = this.callRound();
+        if (this.hasGoodStart(cards) || (this.getMe()['bet'] > 0)) {
+          if(!this.tooRisky()) {
+            betValue = this.callRound();
+          }
+        }
         console.log("######## WE BET (without community card) WITH: " + betValue + " ########");
         bet(betValue)
       } else {
@@ -111,12 +120,13 @@ class Player {
             console.log("RANK: ", rank);
             //Flop
             if (gameState.community_cards.length === 3) {
-              if (rank === 1) {
+              if (rank < 2 && this.tooRisky()) {
+                betValue = this.fold();
+              } else if (rank === 1 && !this.tooRisky()) {
                 betValue = this.callRound();
               } else if (rank > 1) {
                 betValue = this.raise(rank);
-              }
-              else if (rank === 0 && this.hasGoodFlop(cards)) {
+              } else if (rank === 0 && this.hasGoodFlop(cards)) {
                 betValue = this.callRound();
               } else if (rank === 0) {
                 betValue = this.callRound();
@@ -125,14 +135,15 @@ class Player {
 
               // The Turn
             } else if (gameState.community_cards.length === 4) {
-              if (rank === 1) {
+              if (rank < 2 && this.tooRisky()) {
+                betValue = this.fold();
+              } else if (rank === 1 && !this.tooRisky()) {
                 betValue = this.callRound();
-              } else if (rank > 1 && rank <= 3) {
-                betValue = this.raise(1);
               } else if (rank > 3) {
                 betValue = this.raise(5 * rank);
-              }
-              else if (rank === 0) {
+              } else if (rank === 0 && this.hasGoodFlop(cards)) {
+                betValue = this.callRound();
+              } else if (rank === 0) {
                 betValue = this.callRound();
               }
 
