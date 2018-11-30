@@ -85,7 +85,8 @@ class Player {
   }
 
   static tooRisky() {
-    return this.getMe()['bet'] + 300 < this.getMaxBet();
+    const maxBet = this.getMaxBet();
+    return (this.getMe()['bet'] + 300 < maxBet) || this.getMe()['stack'] <= maxBet;
   }
 
   // GETS CALLED
@@ -102,7 +103,7 @@ class Player {
       //Check initial cards on hand before comm flipped
       if (gameState.community_cards.length === 0) {
         if (this.hasGoodStart(cards) || (this.getMe()['bet'] > 0)) {
-          if(!this.tooRisky()) {
+          if (!this.tooRisky()) {
             betValue = this.callRound();
           }
         }
@@ -120,12 +121,15 @@ class Player {
             console.log("RANK: ", rank);
             //Flop
             if (gameState.community_cards.length === 3) {
+
               if (rank < 2 && this.tooRisky()) {
                 betValue = this.fold();
-              } else if (rank === 1 && !this.tooRisky()) {
+              } else if (rank === 1) {
                 betValue = this.callRound();
+              } else if (rank > 1 && this.tooRisky()) {
+                betValue = this.fold(rank);
               } else if (rank > 1) {
-                betValue = this.raise(rank);
+                betValue = this.callRound();
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
                 betValue = this.callRound();
               } else if (rank === 0) {
