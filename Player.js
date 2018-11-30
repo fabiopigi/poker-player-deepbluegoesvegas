@@ -144,12 +144,17 @@ class Player {
             console.log("######## WE BET (with community card) WITH: " + betValue + " ########");
             bet(betValue);
           })
-          .catch(err => console.error(err));
+          .catch(err => {
+            console.error(err);
+            console.log("######## FETCH ERROR, betting with: " + betValue + " ########");
+            bet(0);
+          });
 
       }
 
     }
     catch (e) {
+      console.log("######## outer CATCH, betting with: " + this.raise(1) + " ########");
       bet(this.raise(1));
     }
 
