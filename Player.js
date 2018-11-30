@@ -53,7 +53,7 @@ class Player {
     return (this.betValue + this.gameState.minimum_raise + raiseValue);
   }
 
-  static call() {
+  static callRound() {
     return this.betValue;
   }
 
@@ -95,7 +95,7 @@ class Player {
       //Flop
       if (gameState.community_cards.length === 3)     {
         if (rank === 1) {
-          betValue = this.call();
+          betValue = this.callRound();
         } else if (rank > 1) {
           betValue = this.raise(1);
         }
@@ -107,7 +107,7 @@ class Player {
         // The Turn
       } else if (gameState.community_cards.length === 4)     {
         if (rank === 1) {
-          betValue = this.call();
+          betValue = this.callRound();
         } else if (rank > 1) {
           betValue = this.raise(1);
         }
@@ -119,7 +119,7 @@ class Player {
         //The River
       } else if (gameState.community_cards.length === 5)     {
         if (rank === 1) {
-          betValue = this.call();
+          betValue = this.callRound();
         } else if (rank > 1) {
           betValue = this.raise(1);
         }
