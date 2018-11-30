@@ -119,28 +119,33 @@ class Player {
           .then(json => {
             let rank = json.rank;
 
+
+            if(this.tooRisky()) {
+              const maxBet = this.getMaxBet();
+              console.log("Too RIsky:", this.getMe()['bet'] + Math.round(this.getMe()['stack'] * .3) < maxBet,  this.getMe()['stack'] <= maxBet);
+            }
             console.log("RANK: ", rank);
             //Flop
             if (gameState.community_cards.length === 3) {
 
 
               if (rank < 2 && this.tooRisky()) {
-                console.log("Flop A");
+                console.log("Flop A", rank);
                 betValue = this.fold();
               } else if (rank === 1) {
-                console.log("Flop B");
+                console.log("Flop B", rank);
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
-                console.log("Flop C");
+                console.log("Flop C", rank);
                 betValue = this.fold();
               } else if (rank > 1) {
-                console.log("Flop D");
+                console.log("Flop D", rank);
                 betValue = this.callRound();
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
-                console.log("Flop E");
+                console.log("Flop E", rank);
                 betValue = this.callRound();
               } else if (rank === 0) {
-                console.log("Flop F");
+                console.log("Flop F", rank);
                 betValue = this.callRound();
               }
 
@@ -150,22 +155,22 @@ class Player {
 
 
               if (rank < 2 && this.tooRisky()) {
-                console.log("Turn A");
+                console.log("Turn A", rank);
                 betValue = this.fold();
               } else if (rank === 1) {
-                console.log("Turn B");
+                console.log("Turn B", rank);
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
-                console.log("Turn C");
+                console.log("Turn C", rank);
                 betValue = this.fold();
               } else if (rank > 3) {
-                console.log("Turn D");
+                console.log("Turn D", rank);
                 betValue = this.raise(5 * rank);
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
-                console.log("Turn E");
+                console.log("Turn E", rank);
                 betValue = this.callRound();
               } else if (rank === 0) {
-                console.log("Turn F");
+                console.log("Turn F", rank);
                 betValue = this.callRound();
               }
 
@@ -174,22 +179,22 @@ class Player {
             } else if (gameState.community_cards.length === 5) {
 
               if (rank < 2 && this.tooRisky()) {
-                console.log("River A");
+                console.log("River A", rank);
                 betValue = this.fold();
               } else if (rank === 1) {
-                console.log("River B");
+                console.log("River B", rank);
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
-                console.log("River C");
+                console.log("River C", rank);
                 betValue = this.fold();
               } else if (rank > 3) {
-                console.log("River D");
+                console.log("River D", rank);
                 betValue = this.raise(10 * rank);
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
-                console.log("River E");
+                console.log("River E", rank);
                 betValue = this.callRound();
               } else if (rank === 0) {
-                console.log("River F");
+                console.log("River F", rank);
                 betValue = this.callRound();
               }
 
