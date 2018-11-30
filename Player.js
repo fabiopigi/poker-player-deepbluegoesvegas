@@ -46,7 +46,7 @@ class Player {
   }
 
   static allIn() {
-    return (this.betValue + this.gameState.minimum_raise + this.gameState.players[this.gameState.in_action].stack - 10);
+    return (this.betValue + this.gameState.minimum_raise + this.getMe().stack - 10);
   }
 
   static raise(raiseValue = 1) {
@@ -70,16 +70,15 @@ class Player {
   // GETS CALLED
   static betRequest(gameState, bet) {
 
-    const cards = gameState.community_cards.concat(gameState.players[gameState.in_action].hole_cards);
     this.gameState = gameState;
-    this.betValue = gameState.current_buy_in - gameState.players[gameState.in_action]['bet'];
+    this.betValue = gameState.current_buy_in - this.getMe()['bet'];
+    const cards = gameState.community_cards.concat(this.getMe()['hole_cards']);
     let betValue = 0;
 
-    console.log(this.getMe());
 
     //Check initial cards on hand before comm flipped
     if (gameState.community_cards.length === 0) {
-      if (this.hasGoodStart(cards) || gameState.players[gameState.in_action]['bet'] > 0) {
+      if (this.hasGoodStart(cards) || this.getMe()['bet'] > 0) {
         bet(betValue);
       } else {
         bet(0);
