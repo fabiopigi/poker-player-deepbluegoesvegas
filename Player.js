@@ -193,9 +193,6 @@ class Player {
               } else if (rank > 3) {
                 console.log("River D", rank);
                 betValue = this.raise(10 * rank);
-              } else if (rank === 0 && this.hasGoodFlop(cards)) {
-                console.log("River E", rank);
-                betValue = this.callRound();
               } else if (rank === 0) {
                 console.log("River F", rank);
                 betValue = this.callRound();
@@ -203,17 +200,6 @@ class Player {
                 console.log("River G", rank);
                 betValue = this.callRound();
               }
-
-              //
-              // if (rank === 1) {
-              //   betValue = this.callRound();
-              // } else if (rank > 1 && rank <= 3) {
-              //   betValue = this.raise(1);
-              // } else if (rank > 3) {
-              //   betValue = this.raise(10 * rank);
-              // } else if (rank === 0) {
-              //   betValue = this.callRound();
-              // }
 
             }
 
