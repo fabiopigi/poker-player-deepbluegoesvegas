@@ -103,7 +103,7 @@ class Player {
 
       //Check initial cards on hand before comm flipped
       if (gameState.community_cards.length === 0) {
-        if (this.hasGoodStart(cards) || (this.getMe()['bet'] > 0)) {
+        if (this.hasGoodStart(cards) || (this.getMe()['bet'] >= 10)) {
           if (!this.tooRisky()) {
             betValue = this.callRound();
           }
