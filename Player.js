@@ -140,7 +140,7 @@ class Player {
               betValue = this.allIn();
             }
 
-
+            console.log("######## WE BET WITH: " + betValue + " ########");
             bet(betValue);
           })
           .catch(err => console.error(err));
