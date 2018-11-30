@@ -89,57 +89,59 @@ class Player {
         // community cards are available, we check API
         const rankingUrl = "http://rainman.leanpoker.org/rank" + "?cards=" + encodeURI(JSON.stringify(cards));
         // console.log(rankingUrl);
-        let fetchRequest = fetch(rankingUrl, {method: 'GET'})
-          .then(response => response.json())
-          .then(json => {
-            let rank = json.rank;
+        // let fetchRequest = fetch(rankingUrl, {method: 'GET'})
+        //   .then(response => response.json())
+        //   .then(json => {
+        //     let rank = json.rank;
+        //
+        //     //Flop
+        //     if (gameState.community_cards.length === 3) {
+        //       if (rank === 1) {
+        //         betValue = this.callRound();
+        //       } else if (rank > 1) {
+        //         betValue = this.raise(1);
+        //       }
+        //       else if (rank === 0) {
+        //         betValue = fold();
+        //       }
+        //
+        //
+        //       // The Turn
+        //     } else if (gameState.community_cards.length === 4) {
+        //       if (rank === 1) {
+        //         betValue = this.callRound();
+        //       } else if (rank > 1) {
+        //         betValue = this.raise(1);
+        //       }
+        //       else if (rank === 0) {
+        //         betValue = fold();
+        //       }
+        //
+        //
+        //       //The River
+        //     } else if (gameState.community_cards.length === 5) {
+        //       if (rank === 1) {
+        //         betValue = this.callRound();
+        //       } else if (rank > 1) {
+        //         betValue = this.raise(1);
+        //       }
+        //       else if (rank === 0) {
+        //         betValue = fold();
+        //       }
+        //
+        //     }
+        //
+        //
+        //     if (rank >= 7) {
+        //       betValue = this.allIn();
+        //     }
+        //
+        //
+        //     bet(betValue);
+        //   })
+        //   .catch(err => console.error(err));
 
-            //Flop
-            if (gameState.community_cards.length === 3) {
-              if (rank === 1) {
-                betValue = this.callRound();
-              } else if (rank > 1) {
-                betValue = this.raise(1);
-              }
-              else if (rank === 0) {
-                betValue = fold();
-              }
-
-
-              // The Turn
-            } else if (gameState.community_cards.length === 4) {
-              if (rank === 1) {
-                betValue = this.callRound();
-              } else if (rank > 1) {
-                betValue = this.raise(1);
-              }
-              else if (rank === 0) {
-                betValue = fold();
-              }
-
-
-              //The River
-            } else if (gameState.community_cards.length === 5) {
-              if (rank === 1) {
-                betValue = this.callRound();
-              } else if (rank > 1) {
-                betValue = this.raise(1);
-              }
-              else if (rank === 0) {
-                betValue = fold();
-              }
-
-            }
-
-
-            if (rank >= 7) {
-              betValue = this.allIn();
-            }
-
-
-            bet(betValue);
-          })
-          .catch(err => console.error(err));
+        bet(this.raise(1));
       }
 
     }
