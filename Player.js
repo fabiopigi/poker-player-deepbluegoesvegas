@@ -126,9 +126,9 @@ class Player {
               // if(this.tooRisky()) {
               //
               // } else {
-              //   if(_.contains([1],risk)) {
+              //   if(_.contains([1],rank)) {
               //
-              //   } else if(_.contains([2,3,4,5,6,7,8,9],risk)) {
+              //   } else if(_.contains([2,3,4,5,6,7,8,9],rank)) {
               //
               //   }
               // }
