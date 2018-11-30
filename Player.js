@@ -127,7 +127,7 @@ class Player {
               } else if (rank === 1) {
                 betValue = this.callRound();
               } else if (rank > 1 && this.tooRisky()) {
-                betValue = this.fold(rank);
+                betValue = this.fold();
               } else if (rank > 1) {
                 betValue = this.callRound();
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
@@ -139,10 +139,14 @@ class Player {
 
               // The Turn
             } else if (gameState.community_cards.length === 4) {
+
+
               if (rank < 2 && this.tooRisky()) {
                 betValue = this.fold();
-              } else if (rank === 1 && !this.tooRisky()) {
+              } else if (rank === 1) {
                 betValue = this.callRound();
+              } else if (rank > 1 && this.tooRisky()) {
+                betValue = this.fold();
               } else if (rank > 3) {
                 betValue = this.raise(5 * rank);
               } else if (rank === 0 && this.hasGoodFlop(cards)) {
