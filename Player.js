@@ -28,7 +28,7 @@ class Player {
   static hasMultiple(cards, times) {
     var i;
     for (i = 0; i < cards.length; i++) {
-      if(cards.filter(card => card.rank === cards[i].rank).length >= times){
+      if (cards.filter(card => card.rank === cards[i].rank).length >= times) {
         return true;
       }
     }
@@ -76,71 +76,76 @@ class Player {
     let betValue = 0;
 
 
-    //Check initial cards on hand before comm flipped
-    if (gameState.community_cards.length === 0) {
-      if (this.hasGoodStart(cards) || this.getMe()['bet'] > 0) {
-        bet(betValue);
+    try {
+
+      //Check initial cards on hand before comm flipped
+      if (gameState.community_cards.length === 0) {
+        if (this.hasGoodStart(cards) || this.getMe()['bet'] > 0) {
+          bet(betValue);
+        } else {
+          bet(0);
+        }
       } else {
-        bet(0);
+        // community cards are available, we check API
+        const rankingUrl = "http://rainman.leanpoker.org/rank" + "?cards=" + encodeURI(JSON.stringify(cards));
+        // console.log(rankingUrl);
+        let fetchRequest = fetch(rankingUrl, {method: 'GET'})
+          .then(response => response.json())
+          .then(json => {
+            let rank = json.rank;
+
+            //Flop
+            if (gameState.community_cards.length === 3) {
+              if (rank === 1) {
+                betValue = this.callRound();
+              } else if (rank > 1) {
+                betValue = this.raise(1);
+              }
+              else if (rank === 0) {
+                betValue = fold();
+              }
+
+
+              // The Turn
+            } else if (gameState.community_cards.length === 4) {
+              if (rank === 1) {
+                betValue = this.callRound();
+              } else if (rank > 1) {
+                betValue = this.raise(1);
+              }
+              else if (rank === 0) {
+                betValue = fold();
+              }
+
+
+              //The River
+            } else if (gameState.community_cards.length === 5) {
+              if (rank === 1) {
+                betValue = this.callRound();
+              } else if (rank > 1) {
+                betValue = this.raise(1);
+              }
+              else if (rank === 0) {
+                betValue = fold();
+              }
+
+            }
+
+
+            if (rank >= 7) {
+              betValue = this.allIn();
+            }
+
+
+            bet(betValue);
+          })
+          .catch(err => console.error(err));
       }
-    } else {
-      // community cards are available, we check API
-      const rankingUrl = "http://rainman.leanpoker.org/rank" + "?cards="+encodeURI(JSON.stringify(cards));
-      // console.log(rankingUrl);
-      let fetchRequest = fetch(rankingUrl , {method: 'GET'})
-        .then(response => response.json())
-    .then(json => {
-        let rank = json.rank;
 
-      //Flop
-      if (gameState.community_cards.length === 3)     {
-        if (rank === 1) {
-          betValue = this.callRound();
-        } else if (rank > 1) {
-          betValue = this.raise(1);
-        }
-        else if (rank === 0) {
-          betValue = fold();
-        }
-
-
-        // The Turn
-      } else if (gameState.community_cards.length === 4)     {
-        if (rank === 1) {
-          betValue = this.callRound();
-        } else if (rank > 1) {
-          betValue = this.raise(1);
-        }
-        else if (rank === 0) {
-          betValue = fold();
-        }
-
-
-        //The River
-      } else if (gameState.community_cards.length === 5)     {
-        if (rank === 1) {
-          betValue = this.callRound();
-        } else if (rank > 1) {
-          betValue = this.raise(1);
-        }
-        else if (rank === 0) {
-          betValue = fold();
-        }
-
-      }
-
-
-
-
-
-      if(rank >= 7) {
-        betValue = this.allIn();
-      }
-
-
-      bet(betValue);
-    })
-    .catch(err => console.error(err));
+    }
+    catch
+      (e) {
+      bet(0);
     }
 
   }
