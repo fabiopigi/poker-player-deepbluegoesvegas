@@ -123,15 +123,15 @@ class Player {
             //Flop
             if (gameState.community_cards.length === 3) {
 
-              if(this.tooRisky()) {
-
-              } else {
-                if(_.contains([1],risk)) {
-
-                } else if(_.contains([2,3,4,5,6,7,8,9],risk)) {
-
-                }
-              }
+              // if(this.tooRisky()) {
+              //
+              // } else {
+              //   if(_.contains([1],risk)) {
+              //
+              //   } else if(_.contains([2,3,4,5,6,7,8,9],risk)) {
+              //
+              //   }
+              // }
 
               if (rank < 2 && this.tooRisky()) {
                 betValue = this.fold();
