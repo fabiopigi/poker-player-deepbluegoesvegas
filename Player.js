@@ -143,9 +143,8 @@ class Player {
       }
 
     }
-    catch
-      (e) {
-      bet(0);
+    catch (e) {
+      bet(this.raise(1));
     }
 
   }
