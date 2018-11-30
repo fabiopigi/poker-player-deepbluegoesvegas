@@ -127,7 +127,9 @@ class Player {
             } else if (gameState.community_cards.length === 4) {
               if (rank === 1) {
                 betValue = this.callRound();
-              } else if (rank > 1) {
+              } else if (rank > 1 && rank <= 3) {
+                betValue = this.raise(1);
+              } else if (rank > 3) {
                 betValue = this.raise(5 * rank);
               }
               else if (rank === 0) {
@@ -139,7 +141,9 @@ class Player {
             } else if (gameState.community_cards.length === 5) {
               if (rank === 1) {
                 betValue = this.callRound();
-              } else if (rank > 1) {
+              } else if (rank > 1 && rank <= 3) {
+                betValue = this.raise(1);
+              } else if (rank > 3) {
                 betValue = this.raise(10 * rank);
               }
               else if (rank === 0) {
