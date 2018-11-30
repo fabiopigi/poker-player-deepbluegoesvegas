@@ -169,12 +169,9 @@ class Player {
               } else if (rank > 3) {
                 console.log("Turn D", rank);
                 betValue = this.raise(5 * rank);
-              } else if (rank === 0 && this.hasGoodFlop(cards)) {
-                console.log("Turn E", rank);
-                betValue = this.callRound();
               } else if (rank === 0) {
                 console.log("Turn F", rank);
-                betValue = this.callRound();
+                betValue = this.fold();
               } else {
                 console.log("Turn G", rank);
                 betValue = this.callRound();
