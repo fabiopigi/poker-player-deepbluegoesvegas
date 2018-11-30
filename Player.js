@@ -86,7 +86,7 @@ class Player {
 
   static tooRisky() {
     const maxBet = this.getMaxBet();
-    console.log("maxBet", maxBet);
+    console.log("maxBet",maxBet);
     return (this.getMe()['bet'] + Math.round(this.getMe()['stack'] * .3) < maxBet) || this.getMe()['stack'] <= maxBet;
   }
 
@@ -123,25 +123,25 @@ class Player {
             //Flop
             if (gameState.community_cards.length === 3) {
 
-              if (this.tooRisky()) {
-                if (_.contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], rank)) {
-                  betValue = this.fold();
-                }
-              } else {
-                if (rank === 1) {
-                  betValue = this.callRound();
-                } else if (rank > 1) {
-                  betValue = this.callRound();
-                } else if (rank === 0 && this.hasGoodFlop(cards)) {
-                  betValue = this.callRound();
-                } else if (rank === 0) {
-                  betValue = this.callRound();
-                }
+
+              if (rank < 2 && this.tooRisky()) {
+                betValue = this.fold();
+              } else if (rank === 1) {
+                betValue = this.callRound();
+              } else if (rank > 1 && this.tooRisky()) {
+                betValue = this.fold();
+              } else if (rank > 1) {
+                betValue = this.callRound();
+              } else if (rank === 0 && this.hasGoodFlop(cards)) {
+                betValue = this.callRound();
+              } else if (rank === 0) {
+                betValue = this.callRound();
               }
 
 
               // The Turn
             } else if (gameState.community_cards.length === 4) {
+
 
               if (rank < 2 && this.tooRisky()) {
                 betValue = this.fold();
