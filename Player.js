@@ -35,6 +35,10 @@ class Player {
     return false;
   }
 
+  static hasCard(cards, rank, suit) {
+    return cards.filter(card => card.rank === rank && (!suit || card.suit === suit)).length > 0;
+  }
+
   static hasGoodStart(cards) {
 
     return this.hasMultiple(cards, 2) ||
