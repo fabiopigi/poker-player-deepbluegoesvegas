@@ -87,7 +87,7 @@ class Player {
   static tooRisky() {
     const maxBet = this.getMaxBet();
     console.log("maxBet",maxBet);
-    return (this.getMe()['bet'] + 300 < maxBet) || this.getMe()['stack'] <= maxBet;
+    return (this.getMe()['bet'] + Math.round(this.getMe()['stack'] * .3) < maxBet) || this.getMe()['stack'] <= maxBet;
   }
 
   // GETS CALLED
